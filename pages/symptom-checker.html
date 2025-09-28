@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Symptom Checker - Aqua Guardian Health</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/components.css">
+    <link rel="stylesheet" href="../styles/responsive.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-tint"></i>
+                </div>
+                <div class="logo-text">Aqua<span>Guardian</span></div>
+            </div>
+            
+            <nav>
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="symptom-checker.html" class="active">Symptom Checker</a></li>
+                    <li><a href="water-quality-map.html">Water Quality Map</a></li>
+                    <li><a href="prevention-guidelines.html">Prevention Guidelines</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            
+            <div class="auth-buttons">
+                <button class="btn btn-outline" id="loginBtn">Login</button>
+                <button class="btn btn-primary" id="signupBtn">Sign Up</button>
+            </div>
+            
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Symptom Checker Hero -->
+    <section class="symptom-hero">
+        <div class="container">
+            <div class="symptom-hero-content">
+                <h1>AI-Powered Water-Related Symptom Checker</h1>
+                <p>Identify potential water-borne illnesses and get recommendations based on your symptoms</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Symptom Checker Form -->
+    <section class="symptom-checker">
+        <div class="container">
+            <div class="checker-container">
+                <div class="checker-sidebar">
+                    <h3>Common Water-Related Symptoms</h3>
+                    <div class="symptom-categories">
+                        <div class="category active" data-category="gastrointestinal">
+                            <i class="fas fa-stomach"></i>
+                            <span>Gastrointestinal</span>
+                        </div>
+                        <div class="category" data-category="skin">
+                            <i class="fas fa-allergies"></i>
+                            <span>Skin & Allergies</span>
+                        </div>
+                        <div class="category" data-category="respiratory">
+                            <i class="fas fa-lungs"></i>
+                            <span>Respiratory</span>
+                        </div>
+                        <div class="category" data-category="neurological">
+                            <i class="fas fa-brain"></i>
+                            <span>Neurological</span>
+                        </div>
+                    </div>
+                    
+                    <div class="quick-tips">
+                        <h4>Quick Tips</h4>
+                        <ul>
+                            <li>Drink only boiled or filtered water</li>
+                            <li>Wash hands frequently with soap</li>
+                            <li>Avoid swimming in contaminated water</li>
+                            <li>Seek medical help for severe symptoms</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="checker-main">
+                    <div class="checker-step active" id="step1">
+                        <h2>Select Your Symptoms</h2>
+                        <p>Choose all symptoms you're experiencing:</p>
+                        
+                        <div class="symptoms-grid" id="symptomsGrid">
+                            <!-- Symptoms will be loaded dynamically -->
+                        </div>
+                        
+                        <div class="checker-actions">
+                            <button class="btn btn-primary" id="nextStep1">Next</button>
+                        </div>
+                    </div>
+                    
+                    <div class="checker-step" id="step2">
+                        <h2>Additional Information</h2>
+                        <p>Help us provide better analysis:</p>
+                        
+                        <div class="form-group">
+                            <label for="symptomDuration">How long have you had these symptoms?</label>
+                            <select id="symptomDuration" class="form-control">
+                                <option value="">Select duration</option>
+                                <option value="less-than-day">Less than 24 hours</option>
+                                <option value="1-3-days">1-3 days</option>
+                                <option value="4-7-days">4-7 days</option>
+                                <option value="more-than-week">More than a week</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="waterSource">Recent water source exposure:</label>
+                            <select id="waterSource" class="form-control">
+                                <option value="">Select water source</option>
+                                <option value="tap-water">Tap water</option>
+                                <option value="well-water">Well water</option>
+                                <option value="bottled-water">Bottled water</option>
+                                <option value="river-lake">River/Lake water</option>
+                                <option value="public-pool">Public swimming pool</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="additionalInfo">Any other relevant information:</label>
+                            <textarea id="additionalInfo" class="form-control" placeholder="Describe your situation..."></textarea>
+                        </div>
+                        
+                        <div class="checker-actions">
+                            <button class="btn btn-outline" id="prevStep2">Back</button>
+                            <button class="btn btn-primary" id="nextStep2">Analyze Symptoms</button>
+                        </div>
+                    </div>
+                    
+                    <div class="checker-step" id="step3">
+                        <h2>Analysis Results</h2>
+                        <div class="results-container">
+                            <div class="result-card" id="resultCard">
+                                <!-- Results will be displayed here -->
+                            </div>
+                            
+                            <div class="recommendations">
+                                <h3>Recommended Actions</h3>
+                                <div id="recommendationsList">
+                                    <!-- Recommendations will be displayed here -->
+                                </div>
+                            </div>
+                            
+                            <div class="emergency-alert" id="emergencyAlert" style="display: none;">
+                                <div class="alert-content">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                    <div>
+                                        <h4>Seek Immediate Medical Attention</h4>
+                                        <p>Your symptoms indicate a potentially serious condition that requires immediate medical evaluation.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="checker-actions">
+                            <button class="btn btn-outline" id="prevStep3">Back</button>
+                            <button class="btn btn-primary" id="restartCheck">Start New Check</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Common Illnesses Section -->
+    <section class="common-illnesses">
+        <div class="container">
+            <div class="section-title">
+                <h2>Common Water-Related Illnesses</h2>
+                <p>Learn about illnesses that can be caused by contaminated water</p>
+            </div>
+            
+            <div class="illnesses-grid">
+                <div class="illness-card">
+                    <h3>Cholera</h3>
+                    <p>Acute diarrheal illness caused by infection of the intestine with Vibrio cholerae bacteria.</p>
+                    <div class="illness-symptoms">
+                        <span class="symptom-tag">Watery diarrhea</span>
+                        <span class="symptom-tag">Vomiting</span>
+                        <span class="symptom-tag">Dehydration</span>
+                    </div>
+                </div>
+                
+                <div class="illness-card">
+                    <h3>Giardiasis</h3>
+                    <p>Intestinal infection caused by microscopic parasite Giardia lamblia.</p>
+                    <div class="illness-symptoms">
+                        <span class="symptom-tag">Diarrhea</span>
+                        <span class="symptom-tag">Gas</span>
+                        <span class="symptom-tag">Stomach cramps</span>
+                    </div>
+                </div>
+                
+                <div class="illness-card">
+                    <h3>Legionnaires' Disease</h3>
+                    <p>Severe form of pneumonia caused by Legionella bacteria.</p>
+                    <div class="illness-symptoms">
+                        <span class="symptom-tag">Cough</span>
+                        <span class="symptom-tag">Fever</span>
+                        <span class="symptom-tag">Shortness of breath</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Aqua Guardian</h3>
+                    <p>Advanced water quality monitoring solutions for a safer, healthier future.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="symptom-checker.html">Symptom Checker</a></li>
+                        <li><a href="water-quality-map.html">Water Quality Map</a></li>
+                        <li><a href="prevention-guidelines.html">Prevention Guidelines</a></li>
+                        <li><a href="about.html">About</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Health Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Emergency Contacts</a></li>
+                        <li><a href="#">Water Testing Labs</a></li>
+                        <li><a href="#">Health Centers</a></li>
+                        <li><a href="#">Water Treatment</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Emergency</h3>
+                    <p>If you're experiencing severe symptoms, seek immediate medical attention.</p>
+                    <div class="emergency-contacts">
+                        <p><strong>Emergency:</strong> 911</p>
+                        <p><strong>Poison Control:</strong> 1-800-222-1222</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 Aqua Guardian Health. All rights reserved.</p>
+                <p class="disclaimer">Note: This symptom checker is for informational purposes only and is not a substitute for professional medical advice.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Auth Modal -->
+    <div class="modal" id="authModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="auth-tabs">
+                <button class="tab-btn active" data-tab="login">Login</button>
+                <button class="tab-btn" data-tab="signup">Sign Up</button>
+            </div>
+            
+            <form id="loginForm" class="auth-form active">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Login</button>
+            </form>
+            
+            <form id="signupForm" class="auth-form">
+                <div class="form-group">
+                    <label for="signupName">Full Name</label>
+                    <input type="text" id="signupName" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupEmail">Email</label>
+                    <input type="email" id="signupEmail" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupConfirmPassword">Confirm Password</label>
+                    <input type="password" id="signupConfirmPassword" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/symptom-checker.js"></script>
+</body>
+</html>
