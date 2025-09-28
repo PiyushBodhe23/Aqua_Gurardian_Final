@@ -39,7 +39,7 @@ header {
 nav ul {
     display: flex;
     list-style: none;
-    gap: 30px;
+    gap: 15px;
 }
 
 nav a {
@@ -435,4 +435,5 @@ footer {
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     color: #b0b7c3;
     font-size: 14px;
+
 }
