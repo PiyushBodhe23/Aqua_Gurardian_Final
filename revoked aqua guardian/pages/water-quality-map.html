@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Water Quality Map - Aqua Guardian Health</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/components.css">
+    <link rel="stylesheet" href="../styles/responsive.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-tint"></i>
+                </div>
+                <div class="logo-text">Aqua<span>Guardian</span></div>
+            </div>
+            
+            <nav>
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="symptom-checker.html">Symptom Checker</a></li>
+                    <li><a href="water-quality-map.html" class="active">Water Quality Map</a></li>
+                    <li><a href="prevention-guidelines.html">Prevention Guidelines</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            
+            <div class="auth-buttons">
+                <button class="btn btn-outline" id="loginBtn">Login</button>
+                <button class="btn btn-primary" id="signupBtn">Sign Up</button>
+            </div>
+            
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Map Hero -->
+    <section class="map-hero">
+        <div class="container">
+            <div class="map-hero-content">
+                <h1>Interactive Water Quality Map</h1>
+                <p>Real-time water quality monitoring across different regions and water sources</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="water-map">
+        <div class="container">
+            <div class="map-container">
+                <div class="map-controls">
+                    <div class="control-group">
+                        <h3>Filter by Parameter</h3>
+                        <div class="parameter-filters">
+                            <label class="filter-option">
+                                <input type="checkbox" name="parameter" value="ph" checked>
+                                <span class="filter-label">pH Level</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="parameter" value="turbidity" checked>
+                                <span class="filter-label">Turbidity</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="parameter" value="chlorine" checked>
+                                <span class="filter-label">Chlorine</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="parameter" value="coliform" checked>
+                                <span class="filter-label">Coliform</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="control-group">
+                        <h3>Water Source Type</h3>
+                        <div class="source-filters">
+                            <label class="filter-option">
+                                <input type="checkbox" name="source" value="municipal" checked>
+                                <span class="filter-label">Municipal</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="source" value="well" checked>
+                                <span class="filter-label">Well Water</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="source" value="river" checked>
+                                <span class="filter-label">Rivers</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="source" value="lake" checked>
+                                <span class="filter-label">Lakes</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="control-group">
+                        <h3>Region</h3>
+                        <select id="regionSelect" class="form-control">
+                            <option value="all">All Regions</option>
+                            <option value="north">Northern Region</option>
+                            <option value="south">Southern Region</option>
+                            <option value="east">Eastern Region</option>
+                            <option value="west">Western Region</option>
+                            <option value="central">Central Region</option>
+                        </select>
+                    </div>
+                    
+                    <button class="btn btn-primary" id="applyFilters">Apply Filters</button>
+                </div>
+                
+                <div class="map-wrapper">
+                    <div id="waterQualityMap"></div>
+                    <div class="map-legend">
+                        <h4>Water Quality Index</h4>
+                        <div class="legend-items">
+                            <div class="legend-item">
+                                <span class="legend-color excellent"></span>
+                                <span>Excellent (90-100)</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-color good"></span>
+                                <span>Good (70-89)</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-color fair"></span>
+                                <span>Fair (50-69)</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-color poor"></span>
+                                <span>Poor (0-49)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Water Quality Data -->
+    <section class="quality-data">
+        <div class="container">
+            <div class="section-title">
+                <h2>Recent Water Quality Reports</h2>
+                <p>Detailed analysis of water quality parameters across monitoring stations</p>
+            </div>
+            
+            <div class="data-controls">
+                <div class="search-box">
+                    <input type="text" id="stationSearch" placeholder="Search monitoring stations..." class="form-control">
+                    <i class="fas fa-search"></i>
+                </div>
+                <button class="btn btn-outline" id="exportData">
+                    <i class="fas fa-download"></i> Export Data
+                </button>
+            </div>
+            
+            <div class="data-table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Station Name</th>
+                            <th>Location</th>
+                            <th>Water Source</th>
+                            <th>pH Level</th>
+                            <th>Turbidity</th>
+                            <th>Chlorine</th>
+                            <th>Coliform</th>
+                            <th>Overall Score</th>
+                            <th>Last Updated</th>
+                        </tr>
+                    </thead>
+                    <tbody id="stationsTable">
+                        <!-- Data will be populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="pagination">
+                <button class="btn btn-outline" id="prevPage">Previous</button>
+                <span class="page-info">Page 1 of 5</span>
+                <button class="btn btn-outline" id="nextPage">Next</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Alert System -->
+    <section class="alert-system">
+        <div class="container">
+            <div class="section-title">
+                <h2>Water Quality Alerts</h2>
+                <p>Real-time notifications for water quality issues</p>
+            </div>
+            
+            <div class="alerts-container">
+                <div class="alert-card critical">
+                    <div class="alert-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="alert-content">
+                        <h3>Critical Alert - River Contamination</h3>
+                        <p>High levels of industrial contaminants detected in Blue River. Avoid all recreational activities.</p>
+                        <div class="alert-meta">
+                            <span class="location">Blue River, Northern Region</span>
+                            <span class="time">2 hours ago</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="alert-card warning">
+                    <div class="alert-icon">
+                        <i class="fas fa-exclamation-circle"></i>
+                    </div>
+                    <div class="alert-content">
+                        <h3>Water Treatment Issue</h3>
+                        <p>Elevated turbidity levels at Central Water Treatment Plant. Boil water advisory in effect.</p>
+                        <div class="alert-meta">
+                            <span class="location">Central Water Plant</span>
+                            <span class="time">5 hours ago</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="alert-card info">
+                    <div class="alert-icon">
+                        <i class="fas fa-info-circle"></i>
+                    </div>
+                    <div class="alert-content">
+                        <h3>Maintenance Notice</h3>
+                        <p>Scheduled maintenance at Westside Reservoir may cause temporary water discoloration.</p>
+                        <div class="alert-meta">
+                            <span class="location">Westside Reservoir</span>
+                            <span class="time">1 day ago</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Aqua Guardian</h3>
+                    <p>Advanced water quality monitoring solutions for a safer, healthier future.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="symptom-checker.html">Symptom Checker</a></li>
+                        <li><a href="water-quality-map.html">Water Quality Map</a></li>
+                        <li><a href="prevention-guidelines.html">Prevention Guidelines</a></li>
+                        <li><a href="about.html">About</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Map Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Monitoring Stations</a></li>
+                        <li><a href="#">Water Quality Data</a></li>
+                        <li><a href="#">Alert System</a></li>
+                        <li><a href="#">Historical Data</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Get Alerts</h3>
+                    <p>Subscribe to receive water quality alerts for your area.</p>
+                    <form class="alert-subscription">
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control" required>
+                                <option value="">Select Region</option>
+                                <option value="north">Northern Region</option>
+                                <option value="south">Southern Region</option>
+                                <option value="east">Eastern Region</option>
+                                <option value="west">Western Region</option>
+                                <option value="central">Central Region</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Subscribe to Alerts</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 Aqua Guardian Health. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Auth Modal -->
+    <div class="modal" id="authModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="auth-tabs">
+                <button class="tab-btn active" data-tab="login">Login</button>
+                <button class="tab-btn" data-tab="signup">Sign Up</button>
+            </div>
+            
+            <form id="loginForm" class="auth-form active">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Login</button>
+            </form>
+            
+            <form id="signupForm" class="auth-form">
+                <div class="form-group">
+                    <label for="signupName">Full Name</label>
+                    <input type="text" id="signupName" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupEmail">Email</label>
+                    <input type="email" id="signupEmail" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupConfirmPassword">Confirm Password</label>
+                    <input type="password" id="signupConfirmPassword" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/map-integration.js"></script>
+</body>
+</html>

@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Aqua Guardian Health</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/components.css">
+    <link rel="stylesheet" href="../styles/responsive.css">
+    <link rel="stylesheet" href="../styles/dashboard.css">
+</head>
+<body class="dashboard-body">
+    <!-- Dashboard Header -->
+    <header class="dashboard-header">
+        <div class="container header-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-tint"></i>
+                </div>
+                <div class="logo-text">Aqua<span>Guardian</span></div>
+            </div>
+            
+            <div class="dashboard-nav">
+                <div class="nav-item active" data-page="overview">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Overview</span>
+                </div>
+                <div class="nav-item" data-page="monitoring">
+                    <i class="fas fa-microscope"></i>
+                    <span>Monitoring</span>
+                </div>
+                <div class="nav-item" data-page="alerts">
+                    <i class="fas fa-bell"></i>
+                    <span>Alerts</span>
+                    <span class="badge">3</span>
+                </div>
+                <div class="nav-item" data-page="reports">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Reports</span>
+                </div>
+                <div class="nav-item" data-page="settings">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </div>
+            </div>
+            
+            <div class="dashboard-user">
+                <div class="user-menu">
+                    <div class="user-avatar">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="User">
+                    </div>
+                    <div class="user-info">
+                        <span class="user-name">Piyush Bodhe</span>
+                        <span class="user-role">Administrator</span>
+                    </div>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="user-dropdown">
+                    <a href="#" class="dropdown-item"><i class="fas fa-user"></i> Profile</a>
+                    <a href="#" class="dropdown-item"><i class="fas fa-cog"></i> Account Settings</a>
+                    <a href="#" class="dropdown-item"><i class="fas fa-bell"></i> Notifications</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="../index.html" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Dashboard Sidebar -->
+    <aside class="dashboard-sidebar">
+        <div class="sidebar-content">
+            <div class="sidebar-section">
+                <h3>Quick Actions</h3>
+                <div class="sidebar-actions">
+                    <button class="sidebar-btn" id="addStation">
+                        <i class="fas fa-plus"></i>
+                        Add Monitoring Station
+                    </button>
+                    <button class="sidebar-btn" id="generateReport">
+                        <i class="fas fa-chart-bar"></i>
+                        Generate Report
+                    </button>
+                    <button class="sidebar-btn" id="viewMap">
+                        <i class="fas fa-map"></i>
+                        View Water Map
+                    </button>
+                </div>
+            </div>
+            
+            <div class="sidebar-section">
+                <h3>Monitoring Stations</h3>
+                <div class="stations-list">
+                    <div class="station-item active">
+                        <div class="station-status online"></div>
+                        <div class="station-info">
+                            <span class="station-name">Delhi Central</span>
+                            <span class="station-location">Municipal Water</span>
+                        </div>
+                        <div class="station-score">92</div>
+                    </div>
+                    <div class="station-item">
+                        <div class="station-status online"></div>
+                        <div class="station-info">
+                            <span class="station-name">Mumbai Coastal</span>
+                            <span class="station-location">Coastal Area</span>
+                        </div>
+                        <div class="station-score">85</div>
+                    </div>
+                    <div class="station-item">
+                        <div class="station-status warning"></div>
+                        <div class="station-info">
+                            <span class="station-name">Chennai Reservoir</span>
+                            <span class="station-location">Reservoir</span>
+                        </div>
+                        <div class="station-score">67</div>
+                    </div>
+                    <div class="station-item">
+                        <div class="station-status offline"></div>
+                        <div class="station-info">
+                            <span class="station-name">Kolkata Ganges</span>
+                            <span class="station-location">River Water</span>
+                        </div>
+                        <div class="station-score">-</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="sidebar-section">
+                <h3>Recent Alerts</h3>
+                <div class="alerts-list">
+                    <div class="alert-item critical">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <div class="alert-details">
+                            <span class="alert-title">High Turbidity</span>
+                            <span class="alert-time">2 hours ago</span>
+                        </div>
+                    </div>
+                    <div class="alert-item warning">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <div class="alert-details">
+                            <span class="alert-title">pH Level Alert</span>
+                            <span class="alert-time">5 hours ago</span>
+                        </div>
+                    </div>
+                    <div class="alert-item info">
+                        <i class="fas fa-info-circle"></i>
+                        <div class="alert-details">
+                            <span class="alert-title">Maintenance Due</span>
+                            <span class="alert-time">1 day ago</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Dashboard Main Content -->
+    <main class="dashboard-main">
+        <div class="dashboard-container">
+            <!-- Overview Page -->
+            <div class="dashboard-page active" id="overview-page">
+                <div class="page-header">
+                    <h1>Dashboard Overview</h1>
+                    <div class="header-actions">
+                        <div class="date-filter">
+                            <i class="fas fa-calendar"></i>
+                            <select id="timeRange">
+                                <option value="today">Today</option>
+                                <option value="week" selected>This Week</option>
+                                <option value="month">This Month</option>
+                                <option value="quarter">This Quarter</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-primary">
+                            <i class="fas fa-download"></i> Export Data
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon primary">
+                            <i class="fas fa-tint"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-value">24</span>
+                            <span class="stat-label">Active Stations</span>
+                            <span class="stat-change positive">
+                                <i class="fas fa-arrow-up"></i> 12% from last week
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon success">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-value">89%</span>
+                            <span class="stat-label">Water Quality Score</span>
+                            <span class="stat-change positive">
+                                <i class="fas fa-arrow-up"></i> 3% from last week
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon warning">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-value">7</span>
+                            <span class="stat-label">Active Alerts</span>
+                            <span class="stat-change negative">
+                                <i class="fas fa-arrow-up"></i> 2 new today
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon info">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-value">156</span>
+                            <span class="stat-label">Tests Today</span>
+                            <span class="stat-change positive">
+                                <i class="fas fa-arrow-up"></i> 8% from yesterday
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts Row -->
+                <div class="charts-row">
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>Water Quality Trends</h3>
+                            <div class="chart-legend">
+                                <div class="legend-item">
+                                    <span class="legend-color ph"></span>
+                                    <span>pH Level</span>
+                                </div>
+                                <div class="legend-item">
+                                    <span class="legend-color turbidity"></span>
+                                    <span>Turbidity</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="qualityTrendChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>Parameter Distribution</h3>
+                            <div class="chart-actions">
+                                <button class="chart-btn active">All</button>
+                                <button class="chart-btn">Critical</button>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="parameterChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity & Alerts -->
+                <div class="activity-row">
+                    <div class="activity-card">
+                        <div class="card-header">
+                            <h3>Recent Activity</h3>
+                            <a href="#" class="view-all">View All</a>
+                        </div>
+                        <div class="activity-list">
+                            <div class="activity-item">
+                                <div class="activity-icon success">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <div class="activity-details">
+                                    <p>Station "Delhi Central" passed quality check</p>
+                                    <span class="activity-time">10 minutes ago</span>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon warning">
+                                    <i class="fas fa-exclamation"></i>
+                                </div>
+                                <div class="activity-details">
+                                    <p>Alert triggered for high turbidity at Mumbai Coastal</p>
+                                    <span class="activity-time">2 hours ago</span>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon info">
+                                    <i class="fas fa-sync"></i>
+                                </div>
+                                <div class="activity-details">
+                                    <p>System maintenance completed</p>
+                                    <span class="activity-time">4 hours ago</span>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon primary">
+                                    <i class="fas fa-plus"></i>
+                                </div>
+                                <div class="activity-details">
+                                    <p>New monitoring station added in Bangalore</p>
+                                    <span class="activity-time">1 day ago</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="alerts-card">
+                        <div class="card-header">
+                            <h3>Critical Alerts</h3>
+                            <a href="#" class="view-all">View All</a>
+                        </div>
+                        <div class="alerts-list">
+                            <div class="alert-item critical">
+                                <div class="alert-icon">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                </div>
+                                <div class="alert-content">
+                                    <h4>Chemical Contamination Detected</h4>
+                                    <p>High levels of lead detected in Blue River monitoring station</p>
+                                    <div class="alert-meta">
+                                        <span class="alert-location">Blue River Station</span>
+                                        <span class="alert-time">2 hours ago</span>
+                                    </div>
+                                </div>
+                                <button class="alert-action">Resolve</button>
+                            </div>
+                            
+                            <div class="alert-item warning">
+                                <div class="alert-icon">
+                                    <i class="fas fa-exclamation-circle"></i>
+                                </div>
+                                <div class="alert-content">
+                                    <h4>Equipment Malfunction</h4>
+                                    <p>pH sensor offline at Chennai Reservoir station</p>
+                                    <div class="alert-meta">
+                                        <span class="alert-location">Chennai Reservoir</span>
+                                        <span class="alert-time">5 hours ago</span>
+                                    </div>
+                                </div>
+                                <button class="alert-action">Acknowledge</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Monitoring Page -->
+            <div class="dashboard-page" id="monitoring-page">
+                <div class="page-header">
+                    <h1>Water Quality Monitoring</h1>
+                    <div class="header-actions">
+                        <div class="search-box">
+                            <input type="text" placeholder="Search stations..." class="form-control">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <button class="btn btn-primary" id="addNewStation">
+                            <i class="fas fa-plus"></i> Add Station
+                        </button>
+                    </div>
+                </div>
+
+                <div class="monitoring-grid" id="stationsGrid">
+                    <!-- Stations will be loaded dynamically -->
+                </div>
+            </div>
+
+            <!-- Alerts Page -->
+            <div class="dashboard-page" id="alerts-page">
+                <div class="page-header">
+                    <h1>Alert Management</h1>
+                    <div class="header-actions">
+                        <div class="filter-group">
+                            <select class="form-control" id="alertTypeFilter">
+                                <option value="all">All Alerts</option>
+                                <option value="critical">Critical</option>
+                                <option value="warning">Warning</option>
+                                <option value="info">Info</option>
+                            </select>
+                            <select class="form-control" id="alertStatusFilter">
+                                <option value="all">All Status</option>
+                                <option value="active">Active</option>
+                                <option value="resolved">Resolved</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-outline">
+                            <i class="fas fa-sliders-h"></i> Configure Alerts
+                        </button>
+                    </div>
+                </div>
+
+                <div class="alerts-management">
+                    <div class="alerts-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Description</th>
+                                    <th>Location</th>
+                                    <th>Severity</th>
+                                    <th>Status</th>
+                                    <th>Time</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="alertsTable">
+                                <!-- Alerts will be loaded dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reports Page -->
+            <div class="dashboard-page" id="reports-page">
+                <div class="page-header">
+                    <h1>Reports & Analytics</h1>
+                    <div class="header-actions">
+                        <div class="report-period">
+                            <i class="fas fa-calendar"></i>
+                            <input type="date" id="reportStartDate" class="form-control">
+                            <span>to</span>
+                            <input type="date" id="reportEndDate" class="form-control">
+                        </div>
+                        <button class="btn btn-primary" id="generateReportBtn">
+                            <i class="fas fa-file-pdf"></i> Generate Report
+                        </button>
+                    </div>
+                </div>
+
+                <div class="reports-content">
+                    <div class="report-cards">
+                        <div class="report-card">
+                            <h3>Water Quality Summary</h3>
+                            <div class="report-stats">
+                                <div class="report-stat">
+                                    <span class="stat-value">92%</span>
+                                    <span class="stat-label">Overall Quality</span>
+                                </div>
+                                <div class="report-stat">
+                                    <span class="stat-value">15</span>
+                                    <span class="stat-label">Stations Monitored</span>
+                                </div>
+                                <div class="report-stat">
+                                    <span class="stat-value">98%</span>
+                                    <span class="stat-label">Uptime</span>
+                                </div>
+                            </div>
+                            <button class="btn btn-outline btn-block">View Detailed Report</button>
+                        </div>
+
+                        <div class="report-card">
+                            <h3>Parameter Analysis</h3>
+                            <div class="parameter-analysis">
+                                <div class="parameter-item">
+                                    <span class="parameter-name">pH Level</span>
+                                    <div class="parameter-bar">
+                                        <div class="bar-fill excellent" style="width: 95%"></div>
+                                    </div>
+                                    <span class="parameter-value">95%</span>
+                                </div>
+                                <div class="parameter-item">
+                                    <span class="parameter-name">Turbidity</span>
+                                    <div class="parameter-bar">
+                                        <div class="bar-fill good" style="width: 88%"></div>
+                                    </div>
+                                    <span class="parameter-value">88%</span>
+                                </div>
+                                <div class="parameter-item">
+                                    <span class="parameter-name">Chlorine</span>
+                                    <div class="parameter-bar">
+                                        <div class="bar-fill fair" style="width: 76%"></div>
+                                    </div>
+                                    <span class="parameter-value">76%</span>
+                                </div>
+                                <div class="parameter-item">
+                                    <span class="parameter-name">Coliform</span>
+                                    <div class="parameter-bar">
+                                        <div class="bar-fill excellent" style="width: 98%"></div>
+                                    </div>
+                                    <span class="parameter-value">98%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="report-charts">
+                        <div class="chart-card large">
+                            <div class="chart-header">
+                                <h3>Regional Water Quality Comparison</h3>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="regionalChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Page -->
+            <div class="dashboard-page" id="settings-page">
+                <div class="page-header">
+                    <h1>Settings</h1>
+                </div>
+
+                <div class="settings-content">
+                    <div class="settings-tabs">
+                        <div class="tab-nav">
+                            <button class="tab-btn active" data-tab="profile">Profile</button>
+                            <button class="tab-btn" data-tab="notifications">Notifications</button>
+                            <button class="tab-btn" data-tab="alerts-config">Alert Configuration</button>
+                            <button class="tab-btn" data-tab="integrations">Integrations</button>
+                        </div>
+
+                        <div class="tab-content active" id="profile-tab">
+                            <div class="setting-section">
+                                <h3>Profile Information</h3>
+                                <form class="settings-form">
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label>First Name</label>
+                                            <input type="text" class="form-control" value="John">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Last Name</label>
+                                            <input type="text" class="form-control" value="Doe">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Email</label>
+                                        <input type="email" class="form-control" value="john.doe@aquaguardian.com">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Phone</label>
+                                        <input type="tel" class="form-control" value="+1 (555) 123-4567">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="tab-content" id="notifications-tab">
+                            <div class="setting-section">
+                                <h3>Notification Preferences</h3>
+                                <div class="notification-settings">
+                                    <div class="notification-item">
+                                        <div class="notification-info">
+                                            <h4>Email Notifications</h4>
+                                            <p>Receive alerts and reports via email</p>
+                                        </div>
+                                        <label class="switch">
+                                            <input type="checkbox" checked>
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                    <div class="notification-item">
+                                        <div class="notification-info">
+                                            <h4>SMS Alerts</h4>
+                                            <p>Critical alerts via SMS</p>
+                                        </div>
+                                        <label class="switch">
+                                            <input type="checkbox" checked>
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                    <div class="notification-item">
+                                        <div class="notification-info">
+                                            <h4>Push Notifications</h4>
+                                            <p>Mobile app notifications</p>
+                                        </div>
+                                        <label class="switch">
+                                            <input type="checkbox">
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Add Station Modal -->
+    <div class="modal" id="addStationModal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h2>Add Monitoring Station</h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="addStationForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Station Name</label>
+                            <input type="text" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Location Type</label>
+                            <select class="form-control" required>
+                                <option value="">Select type</option>
+                                <option value="municipal">Municipal Water</option>
+                                <option value="well">Well Water</option>
+                                <option value="river">River</option>
+                                <option value="lake">Lake</option>
+                                <option value="reservoir">Reservoir</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Coordinates</label>
+                        <div class="form-row">
+                            <input type="text" class="form-control" placeholder="Latitude" required>
+                            <input type="text" class="form-control" placeholder="Longitude" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Monitoring Parameters</label>
+                        <div class="parameters-grid">
+                            <label class="parameter-checkbox">
+                                <input type="checkbox" checked> pH Level
+                            </label>
+                            <label class="parameter-checkbox">
+                                <input type="checkbox" checked> Turbidity
+                            </label>
+                            <label class="parameter-checkbox">
+                                <input type="checkbox" checked> Chlorine
+                            </label>
+                            <label class="parameter-checkbox">
+                                <input type="checkbox"> Temperature
+                            </label>
+                            <label class="parameter-checkbox">
+                                <input type="checkbox"> Dissolved Oxygen
+                            </label>
+                            <label class="parameter-checkbox">
+                                <input type="checkbox" checked> Coliform
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-outline" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Add Station</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/dashboard.js"></script>
+</body>
+</html>
